@@ -5,7 +5,8 @@
 {% block styles %}
 <style>
   body {
-    background-color: #f0f0f0;
+    background-color: #E6E6FA; /* Cambia el color de fondo */
+    font-family: Arial, sans-serif;
   }
   .register-container {
     display: flex;
@@ -15,13 +16,18 @@
   }
   .card {
     max-width: 400px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
   }
   .card-header {
-    background-color: #007bff;
-    color: white;
+    background-color: #87CEFA; /* Cambia el color de fondo */
+    color: #000000; /* Cambia el color del texto */
     font-size: 24px;
     font-weight: bold;
     text-align: center;
+    border: none;
   }
   .card-body {
     padding: 30px;
@@ -44,8 +50,8 @@
     margin-bottom: 10px;
   }
   button[type=submit] {
-    background-color: #007bff;
-    color: white;
+    background-color: #87CEFA; /* Cambia el color de fondo */
+    color: #000000; /* Cambia el color del texto */
     font-size: 16px;
     font-weight: bold;
     padding: 10px 20px;
@@ -55,7 +61,7 @@
     width: 100%;
   }
   button[type=submit]:hover {
-    background-color: #0062cc;
+    background-color: #6CA6CD; /* Cambia el color de fondo al pasar el mouse */
   }
   .alert-danger {
     background-color: #f8d7da;

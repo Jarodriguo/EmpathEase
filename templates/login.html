@@ -5,7 +5,8 @@
 {% block styles %}
 <style>
   body {
-    background-color: #f0f0f0;
+    background-color: #E6E6FA;
+    font-family: Arial, sans-serif;
   }
   .login-container {
     display: flex;
@@ -15,13 +16,18 @@
   }
   .card {
     max-width: 400px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
   }
   .card-header {
-    background-color: #007bff;
-    color: white;
+    background-color: #87CEFA;
+    color: #000000;
     font-size: 24px;
     font-weight: bold;
     text-align: center;
+    border: none;
   }
   .card-body {
     padding: 30px;
@@ -43,27 +49,36 @@
     box-sizing: border-box;
     margin-bottom: 10px;
   }
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px; /* Mayor separación entre botones */
+  }
   button[type=submit] {
-    background-color: #007bff;
-    color: white;
+    flex-grow: 1;
+    background-color: #87CEFA;
+    color: #000000;
     font-size: 16px;
     font-weight: bold;
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    width: 100%;
   }
   button[type=submit]:hover {
-    background-color: #0062cc;
+    background-color: #6CA6CD;
   }
-  .alert-danger {
-    background-color: #f8d7da;
-    color: #721c24;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #f5c6cb;
+  .register-button {
+    flex-grow: 1;
+    background-color: transparent; /* Fondo transparente */
+    color: #000000;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
     border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none; /* Eliminar subrayado */
   }
 </style>
 {% endblock %}
@@ -86,7 +101,10 @@
           <label for="password">Password</label>
           <input type="password" class="form-control" id="password" name="password" required>
         </div>
-        <button type="submit">Login</button>
+        <div class="button-container">
+          <button type="submit">Login</button>
+          <a href="{% url 'register' %}" class="register-button">Register</a>
+        </div>
       </form>
     </div>
   </div>
