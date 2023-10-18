@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}Ayuda - EmpathEase{% endblock %}
+{% block styles %}
+  <style>
+    body {
+      background-color: #c4e2f7; /* Azul claro */
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      max-width: 1300px; /* Ampliado el tamaño del contenedor */
+      margin: 0 auto;
+      text-align: center;
+      background-color: #fff; /* Fondo blanco */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    h3 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: #555;
+    }
+
+    p {
+      font-size: 16px;
+      margin-bottom: 20px;
+      color: #777;
+    }
+
+    .small-image {
+      max-width: 30%; /* Tamaño más pequeño para las dos primeras imágenes */
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .large-image {
+      max-width: 100%; /* Restaurado a 100% */
+      height: auto; /* Agregado: asegura que la altura se ajuste automáticamente */
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+  </style>
+{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Cómo usar EmpathEase</h2>
+
+    <h3>Iniciar Sesión</h3>
+    <p>Para empezar a usar EmpathEase, inicia sesión con tu cuenta, aqui un breve ejemplo:</p>
+    <img src="/media/Recursos/images/Login.png" alt="EmpathEase Login" class="small-image">
+    <h3>Registrarse</h3>
+    <p>en caso de no estar registrado llene los datos que les solicitan, aqui un ejemplo:</p>
+    <img src="/media/Recursos/images/Register.png" alt="EmpathEase Register" class="small-image">
+    <h3>Chatea con EmpathEase</h3>
+    <p>Una vez que hayas iniciado sesión, podrás comenzar a chatear con el asistente virtual EmpathEase. Puedes hacer
+        preguntas sobre tus sentimientos y emociones.</p>
+
+    <h3>Enviar Mensajes</h3>
+    <p>Para enviar un mensaje, simplemente escribe tu pregunta o comentario en el cuadro de texto y presiona el botón
+        "Send". Tu mensaje aparecerá en la conversación.</p>
+    <img src="/media/Recursos/images/Chat.png" alt="EmpathEase Chat" class="large-image">
+    <h3>Ver Respuestas</h3>
+    <p>EmpathEase te responderá con mensajes que te ayudarán a entender y gestionar tus emociones.</p>
+    <img src="/media/Recursos/images/Respuesta.png" alt="EmpathEase Respuesta" class="large-image">
+    <h3>Cerrar Sesión</h3>
+    <p>Para cerrar sesión, haz clic en el enlace "Logout" en la esquina superior derecha.</p>
+    <img src="/media/Recursos/images/Logout.png" alt="EmpathEase Logout" class="large-image">
+</div>
+{% endblock %}

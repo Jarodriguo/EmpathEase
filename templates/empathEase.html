@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title %}EmpathEase{% endblock %}
+
 {% block styles %}
 <style>
   body {
@@ -81,7 +83,7 @@
   }
 
   .message {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     list-style: none;
     display: flex;
     flex-direction: column;
@@ -93,17 +95,13 @@
     border-radius: 20px;
     word-wrap: break-word;
     max-width: 70%;
-    /* Limit the width of the message boxes */
   }
 
   .sent {
-    background-color: #AFEEEE;
+    background-color: rgb(203, 250, 250);
     color: #000000;
-    align-self: flex-end;
+    align-self: flex-end; /* Alinea el mensaje del usuario a la derecha */
     border-radius: 20px 20px 0 20px;
-    margin-left: auto;
-    justify-content: flex-end;
-    /* Align to the right */
   }
 
   .received {
@@ -111,22 +109,24 @@
     color: #000000;
     align-self: flex-start;
     border-radius: 20px 20px 20px 0;
-    margin-right: auto;
-    justify-content: flex-start;
-    /* Align to the left */
   }
 
   .message-sender {
     font-weight: bold;
+    text-align: left;
+    margin-bottom: 5px;
+  }
+
+  .message-content {
+    text-align: left;
   }
 </style>
 {% endblock %}
 
-
 {% block content %}
 <div class="chat-container">
   <div class="card">
-    <div class="card-header">EmpathEase</div>
+    <div class="card-header">EmpathEase<div><a href="{% url 'help' %}">Ayuda</a></div></div>
     <div class="user-info">
       <div><b>Welcome, {{ user.username }}</b></div>
       <div><a href="logout" class="btn btn-link">Logout</a></div>

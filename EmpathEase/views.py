@@ -9,7 +9,7 @@ from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer
 from sumy.summarizers.lsa import LsaSummarizer
 
-openaiApiKey = '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'
+openaiApiKey = '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'
 openai.api_key = openaiApiKey
 
 def summarize_messages(messages):
@@ -106,3 +106,6 @@ def register(request):
 def logout(request):
     auth.logout(request)
     return redirect('login')
+
+def help_page(request):
+    return render(request, 'help.html')
