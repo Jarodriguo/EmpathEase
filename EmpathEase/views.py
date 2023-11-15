@@ -9,7 +9,7 @@ from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer
 from sumy.summarizers.lsa import LsaSummarizer
 
-openaiApiKey = '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'
+openaiApiKey = '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'
 openai.api_key = openaiApiKey
 
 def summarize_messages(messages):
@@ -42,7 +42,7 @@ def askOpenai(messages):
 def empathEase(request):
     user_id = request.user.id
     chats = Chat.objects.filter(user_id=user_id)
-    
+
     messages = [
         {"role": "system", "content": "You are a virtual psychologist here to listen and provide support."}
     ]
@@ -53,19 +53,21 @@ def empathEase(request):
     messages = remove_redundant_messages(messages)  # Elimina mensajes redundantes
     messages_text = "\n".join([message["content"] for message in messages])
     summarized_messages = summarize_messages(messages_text)  # Resume los mensajes
-    
+
     if request.method == 'POST':
         message = request.POST.get('message')
         messages.append({"role": "user", "content": message})
-        
+
+        # Envía el historial completo a OpenAI para obtener la respuesta
         response = askOpenai(messages)
-        
+
         chat = Chat(user_id=user_id, message=message, response=response, created_at=timezone.now())
         chat.save()
-        
+
         return JsonResponse({'message': message, 'response': response})
-    
+
     return render(request, 'empathEase.html', {'chats': chats, 'summarized_messages': summarized_messages})
+
 
 
 def login(request):

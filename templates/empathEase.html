@@ -100,7 +100,8 @@
   .sent {
     background-color: rgb(203, 250, 250);
     color: #000000;
-    align-self: flex-end; /* Alinea el mensaje del usuario a la derecha */
+    align-self: flex-end;
+    /* Alinea el mensaje del usuario a la derecha */
     border-radius: 20px 20px 0 20px;
   }
 
@@ -126,13 +127,14 @@
 {% block content %}
 <div class="chat-container">
   <div class="card">
-    <div class="card-header">EmpathEase<div><a href="{% url 'help' %}">Ayuda</a></div></div>
+    <div class="card-header">EmpathEase<div><a href="{% url 'help' %}">Ayuda</a></div>
+    </div>
     <div class="user-info">
       <div><b>Welcome, {{ user.username }}</b></div>
       <div><a href="logout" class="btn btn-link">Logout</a></div>
     </div>
     <div class="card-body messages-box">
-      <ul class="list-unstyled messages-list">
+      <ul class="list-unstyled messages-list" id="messages-list">
         <li class="message received">
           <div class="message-text">
             <div class="message-sender">
@@ -169,12 +171,12 @@
         {% endfor %}
       </ul>
     </div>
-    <form class="message-form">
+    <form class="message-form" id="message-form">
       {% csrf_token %}
       <div class="input-group">
-        <input type="text" class="form-control message-input" placeholder="Type your message...">
+        <input type="text" class="form-control message-input" id="message-input" placeholder="Type your message...">
         <div class="input-group-append">
-          <button type="submit" class="btn btn-send">Send</button>
+          <button type="button" class="btn btn-send" id="send-button">Send</button>
         </div>
       </div>
     </form>
@@ -182,59 +184,58 @@
 </div>
 
 <script>
-  const messagesList = document.querySelector('.messages-list');
-  const messageForm = document.querySelector('.message-form');
-  const messageInput = document.querySelector('.message-input');
+  document.addEventListener('DOMContentLoaded', function () {
+    const messagesList = document.getElementById('messages-list');
+    const messageForm = document.getElementById('message-form');
+    const messageInput = document.getElementById('message-input');
+    const sendButton = document.getElementById('send-button');
 
-  messageForm.addEventListener('submit', (event) => {
-    event.preventDefault();
+    sendButton.addEventListener('click', function () {
+      const message = messageInput.value.trim();
+      if (message.length === 0) {
+        return;
+      }
 
-    const message = messageInput.value.trim();
-    if (message.length === 0) {
-      return;
-    }
+      // Añadir mensaje del usuario al historial
+      appendMessage('You', message, 'sent');
 
-    const messageItem = document.createElement('li');
-    messageItem.classList.add('message', 'sent');
-    messageItem.innerHTML = `
-        <div class="message-text">
-            <div class="message-sender">
-                <b>You</b>
-            </div>
-            <div class="message-content">
-                ${message}
-            </div>
-        </div>`;
-    messagesList.appendChild(messageItem);
-
-    messageInput.value = '';
-
-    fetch('', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        'csrfmiddlewaretoken': document.querySelector('[name=csrfmiddlewaretoken]').value,
-        'message': message
+      // Enviar mensaje al servidor
+      fetch('', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          'csrfmiddlewaretoken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+          'message': message
+        })
       })
-    })
-      .then(response => response.json())
-      .then(data => {
-        const response = data.response;
-        const messageItem = document.createElement('li');
-        messageItem.classList.add('message', 'received');
-        messageItem.innerHTML = `
-        <div class="message-text">
-            <div class="message-sender">
-              <b>AI EmpathEase</b>
-            </div>
-            <div class="message-content">
-                ${response}
-            </div>
-        </div>
-          `;
-        messagesList.appendChild(messageItem);
-      });
-  });
+        .then(response => response.json())
+        .then(data => {
+          const response = data.response;
 
+          // Añadir respuesta del chatbot al historial
+          appendMessage('AI EmpathEase', response, 'received');
+        });
+
+      // Limpiar el input de mensajes
+      messageInput.value = '';
+    });
+
+
+    // Función para añadir un mensaje al historial
+    function appendMessage(sender, content, messageType) {
+      const messageItem = document.createElement('li');
+      messageItem.classList.add('message', messageType);
+      messageItem.innerHTML = `
+    <div class="message-text">
+      <div class="message-sender">
+        <b>${sender}</b>
+      </div>
+      <div class="message-content">
+        ${content}
+      </div>
+    </div>`;
+      messagesList.appendChild(messageItem);
+    }
+  });
 </script>
 {% endblock %}
